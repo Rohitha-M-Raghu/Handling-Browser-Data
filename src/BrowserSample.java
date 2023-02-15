@@ -138,7 +138,7 @@ public class BrowserSample {
 		for(Map.Entry m: browserMap.entrySet()) {
 			browserMap.get(m.getKey()).getBrowserDetails();
 		}
-		System.out.println("Enter: ");
+		System.out.print("Enter: ");
 		String deleteBrowser = scanner.next();
 		browserMap.remove(deleteBrowser);
 		System.out.println(deleteBrowser + " removed Successfully... ");
