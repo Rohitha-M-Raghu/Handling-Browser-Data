@@ -24,18 +24,48 @@ public class BrowserSample {
 			browserHistory.put(history);
 		}
 		public void displayHistory() {
-			System.out.println(this.browserHistory);
+			if(browserHistory.length() == 0) {
+				System.out.println("No History To Display");
+				return;
+			}
+			System.out.println(this.browserName + " Browser History");
+			System.out.println("-------------------");
+			String history = browserHistory.toString();
+			int n = 0;
+			for(int i=1;i<history.length(); ++i) {
+				char ch = history.charAt(i);
+				if(ch == '[') {
+					n++;
+					System.out.print("\n" + n + "  ");
+				}
+				else if (ch == ']'){
+					System.out.println("");
+				}
+				else if(ch == ',') {
+					System.out.print("\t");
+				}
+				else {
+					System.out.print(ch);
+				}
+			}
 		}
 		
 		public void getBrowserDetails() {
 			System.out.print(this.browserName + "\t" + this.version + "\n");
 		}
 		
+		public void removeHistory(int n) {
+			browserHistory.remove(n-1);
+			System.out.println("Record removed Successfully...");
+		}
 		public void resetHistory() {
 			while(this.browserHistory.length()> 0) {
 				browserHistory.remove(0);
 			}
 			System.out.println(this.browserName + " reset Successfully... ");
+		}
+		public int getNumberOfRecords() {
+			return this.browserHistory.length();
 		}
 		
 	}
@@ -137,7 +167,15 @@ public class BrowserSample {
 					String ip = scanner.next();
 					browserMap.get(browserChoice).addNewHistory(url, ip);
 					break;
-			case 3: System.out.println("WORK IN PROGRESS...");
+			case 3: if(browserMap.get(browserChoice).getNumberOfRecords() == 0) {
+						System.out.println("\nNo records to delete...");
+					}
+					else {
+						browserMap.get(browserChoice).displayHistory();
+						System.out.print("Enter the record to be removed: ");
+						int line = scanner.nextInt();
+						browserMap.get(browserChoice).removeHistory(line);
+					}
 					break;
 			case 4: browserMap.get(browserChoice).resetHistory();
 					break;
