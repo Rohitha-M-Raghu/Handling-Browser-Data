@@ -66,13 +66,12 @@ public class BrowserSample {
 		}
 		public int getNumberOfRecords() {
 			return this.browserHistory.length();
-		}
-		
+		}	
 	}
+	
 	public static Scanner scanner = new Scanner(System.in);
 	private static Map<String, Browser> browserMap = new HashMap<>();
 	public static void main(String[] args) {
-		
 		int choice = 0;
 		while(choice != 5) {
 			System.out.println("\nMAIN MENU");
@@ -115,12 +114,10 @@ public class BrowserSample {
 				browserMap.get(m.getKey()).getBrowserDetails();
 			}
 		}
-
 	}
 	
 	private static void addBrowser() {		//add a new browser
 		System.out.print("Enter browser: ");
-		//Scanner scanner = new Scanner(System.in);
 		String newBrowser = scanner.next();
 		if(browserMap.containsKey(newBrowser)) {
 			System.out.println(newBrowser + "already exists");
@@ -161,21 +158,9 @@ public class BrowserSample {
 		switch(option) {
 			case 1: browserMap.get(browserChoice).displayHistory();
 					break;
-			case 2: System.out.print("Enter url: ");
-					String url = scanner.next();
-					System.out.print("Enter ip: ");
-					String ip = scanner.next();
-					browserMap.get(browserChoice).addNewHistory(url, ip);
+			case 2: addToHistory(browserChoice);
 					break;
-			case 3: if(browserMap.get(browserChoice).getNumberOfRecords() == 0) {
-						System.out.println("\nNo records to delete...");
-					}
-					else {
-						browserMap.get(browserChoice).displayHistory();
-						System.out.print("Enter the record to be removed: ");
-						int line = scanner.nextInt();
-						browserMap.get(browserChoice).removeHistory(line);
-					}
+			case 3: removeFromHistory(browserChoice);
 					break;
 			case 4: browserMap.get(browserChoice).resetHistory();
 					break;
@@ -183,5 +168,34 @@ public class BrowserSample {
 		}
 	}
 	
-
+	private static void addToHistory(String browserChoice) {
+		char choice = 'y';
+		while(choice == 'y') {
+			System.out.print("Enter url: ");
+			String url = scanner.next();
+			System.out.print("Enter ip: ");
+			String ip = scanner.next();
+			browserMap.get(browserChoice).addNewHistory(url, ip);	
+			System.out.print("Do you want to continue adding more records(y/n): ");
+			choice = scanner.next().charAt(0);
+		}
+	}
+	
+	private static void removeFromHistory(String browserChoice) {
+		char choice = 'y';
+		while(choice == 'y') { 
+			if(browserMap.get(browserChoice).getNumberOfRecords() == 0) {
+				System.out.println("\nNo records to delete...");
+				return;
+			}
+			else {
+				browserMap.get(browserChoice).displayHistory();
+				System.out.print("Enter the record to be removed: ");
+				int line = scanner.nextInt();
+				browserMap.get(browserChoice).removeHistory(line);
+			}
+			System.out.print("Do you want to continue adding more records(y/n): ");
+			choice = scanner.next().charAt(0);
+		}
+	}
 }
