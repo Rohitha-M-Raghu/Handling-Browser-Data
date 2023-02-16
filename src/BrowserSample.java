@@ -110,12 +110,12 @@ public class BrowserSample {
 		else {
 			System.out.println("\nBrowser List");
 			System.out.println("-------------");
-			for(Map.Entry m: browserMap.entrySet()) {
-				//System.out.println(m.getKey());
+			for(Map.Entry<String, Browser> m: browserMap.entrySet()) {
+
 				browserMap.get(m.getKey()).getBrowserDetails();
 			}
 		}
-		//code
+
 	}
 	
 	private static void addBrowser() {		//add a new browser
@@ -135,7 +135,7 @@ public class BrowserSample {
 	
 	private static void removeBrowser() {	//remove browser
 		System.out.println("Select the browser to be removed: ");
-		for(Map.Entry m: browserMap.entrySet()) {
+		for(Map.Entry<String, Browser> m: browserMap.entrySet()) {
 			browserMap.get(m.getKey()).getBrowserDetails();
 		}
 		System.out.print("Enter: ");
